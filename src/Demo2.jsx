@@ -1,6 +1,5 @@
 import ResizeTableHOC from "./components/ResizeTable";
 import ProTable from "@ant-design/pro-table";
-import { Table } from "antd";
 
 const ResizeProTable = ResizeTableHOC(ProTable);
 

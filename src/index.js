@@ -2,7 +2,6 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import Demo1 from "./Demo1";
 import Demo2 from "./Demo2";
-import "./index.css";
 import "antd/dist/antd.css";
 
 const DemoList = () => {
