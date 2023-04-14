@@ -44,7 +44,7 @@ const ResizableTitle = (props) => {
 };
 
 const ResizeTableHOC = (TableFC) =>
-  forwardRef((props, ref) => {
+  forwardRef(function Wrap(props, ref) {
     const { columns: cls, ...restProps } = props;
     const [columns, setColumns] = useState(cls);
     const handleResize =

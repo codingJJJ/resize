@@ -1,4 +1,5 @@
 import ResizeTableHOC from "./components/ResizeTable";
+import React from "react";
 import { Table } from "antd";
 
 const ResizeTable = ResizeTableHOC(Table);
@@ -31,23 +32,19 @@ const Demo1 = () => {
     {
       title: "Date",
       dataIndex: "date",
-      width: 200,
     },
     {
       title: "Amount",
       dataIndex: "amount",
-      width: 100,
       sorter: (a, b) => a.amount - b.amount,
     },
     {
       title: "Type",
       dataIndex: "type",
-      width: 100,
     },
     {
       title: "Note",
       dataIndex: "note",
-      width: 100,
     },
     {
       title: "Action",
