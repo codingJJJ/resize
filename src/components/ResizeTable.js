@@ -10,12 +10,13 @@ const Th = styled.th`
 
 const ResizableHandle = styled.span`
   position: absolute;
-  right: -5px;
+  right: -15px;
   bottom: 0;
   z-index: 1;
-  width: 10px;
+  width: 30px;
   height: 100%;
   cursor: col-resize;
+  user-select: none;
 `;
 
 const ResizableTitle = (props) => {
@@ -43,6 +44,7 @@ const ResizeTableHOC = (TableFC) =>
   forwardRef(function Wrap(props, ref) {
     const { columns: cls, ...restProps } = props;
     const [columns, setColumns] = useState(cls);
+    const isColDragRef = useRef();
     const endIndexRef = useRef();
     const handleResize =
       (index) =>
@@ -77,7 +79,13 @@ const ResizeTableHOC = (TableFC) =>
     };
 
     const dragEvent = {
+      onDragStart: (e) => {
+        isColDragRef.current = true;
+        console.log("ondragstart");
+        console.log(e);
+      },
       onDragEnd: (e) => {
+        isColDragRef.current = false;
         const startIndex = findTH(e.target).cellIndex;
         const endIndex = endIndexRef.current;
         if (startIndex !== endIndex) {
@@ -89,14 +97,16 @@ const ResizeTableHOC = (TableFC) =>
         endIndexRef.current = findTH(e.target).cellIndex;
       },
       onDragOver: (e) => {
-        if (e.preventDefault) {
-          e.preventDefault();
-          // 设置拖拽图标
-          if (e.dataTransfer?.dropEffect) {
-            e.dataTransfer.dropEffect = "move";
+        if (isColDragRef.current) {
+          if (e.preventDefault) {
+            e.preventDefault();
+            // 设置拖拽图标
+            if (e.dataTransfer?.dropEffect) {
+              e.dataTransfer.dropEffect = "move";
+            }
+          } else {
+            e.returnValue = false;
           }
-        } else {
-          e.returnValue = false;
         }
       },
     };
